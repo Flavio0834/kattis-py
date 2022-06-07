@@ -1,0 +1,1 @@
+print("Thank you,",str(input())+",","and farewell!")
