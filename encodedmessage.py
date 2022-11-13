@@ -13,4 +13,4 @@ for i in range(N):
         for j1 in range(vN):
             b += L[j1][vN - i1 - 1]
 
-    print(L, b)
+    print(b)
