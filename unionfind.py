@@ -1,6 +1,10 @@
+import sys
+
+
 class UF:
     def __init__(self, n):
         self.id = [i for i in range(n)]
+        self.rang = [1 for i in range(n)]
 
     def find(self, a):
         while self.id[a] != a:
@@ -9,23 +13,30 @@ class UF:
         return a
 
     def union(self, a, b):
+        a = self.find(a)
+        b = self.find(b)
         if not self.connected(a, b):
-            self.id[self.find(a)] = self.find(b)
+            if self.rang[b] >= self.rang[a]:
+                self.id[a] = b
+                if self.rang[b] == self.rang[a]:
+                    self.rang[b] += 1
+            else:
+                self.id[b] = a
 
     def connected(self, a, b):
-        while self.id[a] != a or self.id[b] != b:
-            a = self.id[a]
-            b = self.id[b]
+        a = self.find(a)
+        b = self.find(b)
 
         return True if a == b else False
 
 
 if __name__ == "__main__":
-    N, Q = map(int, input().split())
+    A = sys.stdin.readlines()
+    N, Q = map(int, A[0].split())
     tree = UF(N)
 
-    for i in range(Q):
-        q, a, b = input().split()
+    for i in range(1, Q + 1):
+        q, a, b = A[i].split()
         a = int(a)
         b = int(b)
 
